@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
+	<file:config name="File_Config" doc:name="File Config" doc:id="7c4a8409-dccc-4212-8f20-2bee00966f71" >
+		<file:connection workingDir="C:\mule-workspace\LOCAL_FileFolder"/>
+	</file:config>
+	<flow name="filepoc1Flow" doc:id="c1b78740-56e8-4bc1-8273-f7278e132ddf" >
+		<file:listener doc:name="On New or Updated File" doc:id="71a0168c-6693-4ac7-9acf-22f62b30c47c" config-ref="File_Config" directory="C:\mule-workspace\LOCAL_FileFolder\FileRead" moveToDirectory="C:\mule-workspace\LOCAL_FileFolder\FileArchive" autoDelete="true">
+			<scheduling-strategy >
+				<fixed-frequency timeUnit="SECONDS"/>
+			</scheduling-strategy>
+		</file:listener>
+		<logger level="INFO" doc:name="Logger" doc:id="7bd64b78-797a-4ef4-8956-a9bedc0596d4" message="##Logger01##"/>
+		<file:write doc:name="Write" doc:id="f539079a-6a31-447a-b287-d687a436a9f8" config-ref="File_Config" path="C:\mule-workspace\LOCAL_FileFolder\FileWrite\file.csv"/>
+		<logger level="INFO" doc:name="Logger" doc:id="aa0eda0c-8add-4202-8d68-9631f2d39a22" message="##Logger_02##"/>
+		
+	</flow>
+</mule>
