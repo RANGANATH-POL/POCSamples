@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:spring="http://www.mulesoft.org/schema/mule/spring" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" 
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/spring http://www.mulesoft.org/schema/mule/spring/current/mule-spring.xsd">
+	
+	<spring:config name="springConfig" files="beans.xml" doc:id="8623553f-16f6-45d9-acef-e23764e05bf8" />
+	
+	<spring:security-manager>
+    		<spring:delegate-security-provider name="memory-provider" delegate-ref="authenticationManager" />
+ 	</spring:security-manager>
+	
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="73314634-8a45-475d-bf4d-d9e0e5a8a9c7" >
+		<http:listener-connection port="8081" host="0.0.0.0"/>
+	</http:listener-config>
+	<flow name="http-basic-authFlow" doc:id="6d1fb326-ba64-4877-ab2a-128c746f1504" >
+		<http:listener doc:name="Listener" doc:id="bee69dfe-efaf-4502-9377-d45c67b4ff5c" config-ref="HTTP_Listener_config" path="/">
+			<ee:repeatable-file-store-stream />
+		</http:listener>
+		    <http:basic-security-filter realm="mule" />
+      <spring:authorization-filter requiredAuthorities="ROLE_ADMIN" doc:id="64de0fab-6550-4ac3-b91c-543dd61a9a06" />
+		<logger level="INFO" doc:name="Logger" doc:id="daf5ab74-462b-491c-8792-b2b2b6f7b20e" message="Basic Authentication Successful"/>
+	</flow>
+</mule>
