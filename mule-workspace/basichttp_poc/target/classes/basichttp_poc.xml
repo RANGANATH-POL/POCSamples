@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="5f7cdf93-38b2-455f-acfe-c0dc78fdcf0c" basePath="/RR" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="basichttp_pocFlow" doc:id="552c9051-55ce-40ef-bb05-2032860d92bd" >
+		<http:listener doc:name="HTTP_GET" doc:id="13f28970-c7ba-4474-8ca4-d7a0934d71af" path="/helloworld" allowedMethods="GET" config-ref="HTTP_Listener_config"/>
+		<set-payload value="RANGANATH" doc:name="Set Payload" doc:id="95f5d020-4ace-4479-b940-3e8229cd4712" />
+		<logger level="INFO" doc:name="Logger" doc:id="5fa204cc-9a4b-49cc-8c98-58f9d41b6081" message="***** Logger *****"/>
+	</flow>
+	<flow name="basichttp_pocFlow1" doc:id="dae0888a-f651-48c3-9eab-1e7936baae66">
+	
+	<http:listener doc:name="HTTP_POST" doc:id="73716e8d-93f5-4419-8314-2de63c80fb36" path="/helloworld" allowedMethods="POST" config-ref="HTTP_Listener_config"/>
+		<set-payload value="RANGANATH" doc:name="Set Payload" doc:id="bda85011-463b-4643-8230-dd18623e8b31" />
+		<logger level="INFO" doc:name="Logger" doc:id="c54fa485-4e5a-46bd-934f-cc937749f6a8" message="***** Logger POST Flow *****"/>
+	
+	</flow>
+</mule>
