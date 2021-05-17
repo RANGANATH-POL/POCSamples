@@ -1,0 +1,30 @@
+FORMAT: 1A
+HOST: https://polls.apiblueprint.org/
+
+# AmericanFlights_api
+
+/createFlightbooking:
+ 
+ post:
+    {
+    "Name":"Ranganath",
+    "Age":"",
+    "Phone number":"1111111111",
+    "Aadhar number":"1001 2001 3001",
+    "Boarding":"Bangalore",
+    "Arival":"Delhi"
+    }
+/CancelFlightbooking:
+
+post:
+     {
+    "Aadhar number":"1001 2001 3001",
+    "FlightBooking id":""
+    }
+/GetFlightbookings:
+
+get:
+    {
+    "FlightBooking id":"",
+    "Aadhar number":"1001 2001 3001"
+    }
